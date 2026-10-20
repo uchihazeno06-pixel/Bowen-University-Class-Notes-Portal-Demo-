@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bowen University Class Notes</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Login page -->
+<div id="loginPage" class="login-wrap">
+  <div class="login-card">
+    <div class="logo">BU</div>
+    <h1>Bowen University</h1>
+    <p class="sub">Class Notes Portal (Demo)</p>
+    <label>Username</label>
+    <input id="user" placeholder="Enter username">
+    <label>Password</label>
+    <input id="pass" type="password" placeholder="Enter password" onkeydown="if (event.key === 'Enter') login()">
+    <p id="error" class="error"></p>
+    <button onclick="login()">Login</button>
+  </div>
+</div>
+
+<!-- Main page (hidden until login) -->
+<div id="mainPage" class="hidden">
+  <div class="topbar">
+    <div>
+      <h2>Bowen University</h2>
+      <span>Class Notes Portal</span>
+    </div>
+    <div class="right">
+      <span id="who"></span>
+      <button class="light" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- Course reps only: add a note -->
+    <div id="repPanel" class="panel hidden">
+      <h3>Add a Note</h3>
+      <p>Notes you add are public: every department can see them. Deleting a note only hides it for your department. You can add notes to courses related to your department, including General courses.</p>
+      <div class="row">
+        <select id="addCourse"></select>
+        <input id="addTitle" placeholder="Note title e.g. Week 3 Note">
+        <button onclick="addNote()">Add Note</button>
+      </div>
+      <p id="repMsg" class="ok"></p>
+    </div>
+
+    <!-- Course reps only: ask for another department's course -->
+    <div id="reqPanel" class="panel hidden">
+      <h3>Request a Course for Your Department</h3>
+      <p>Want another department's course to show under your department? Send a request. The rep of that course's department (or the admin) must approve it.</p>
+      <div class="row">
+        <select id="reqCourse"></select>
+        <button onclick="sendRequest()">Send Request</button>
+      </div>
+      <p id="reqMsg" class="ok"></p>
+    </div>
+
+    <!-- Course reps and admin: requests and reports -->
+    <div id="inboxPanel" class="panel hidden">
+      <h3>Requests</h3>
+      <div id="requestList"></div>
+      <h3 class="gap">Reports</h3>
+      <div id="reportList"></div>
+    </div>
+
+    <div class="filters">
+      <select id="deptFilter" onchange="showCourses()"></select>
+      <input id="search" placeholder="Search courses..." oninput="showCourses()">
+      <label id="mineLabel" class="check">
+        <input id="mineOnly" type="checkbox" onchange="showCourses()"> Show only courses related to my department
+      </label>
+    </div>
+
+    <div id="courseList"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
